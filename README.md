@@ -1,8 +1,8 @@
 # system-usage-bot
 
-A Mastodon bot that toots the system usage of the server it runs on (see an example toot [here](https://fedi.limes.pink/@system/110803628949926886))
+a mastodon bot that toots the system usage of the server it runs on (see an example toot [here](https://fedi.limes.pink/@system/110803628949926886))
 
-### Set up
+### set up
 
 1. clone the repository and install the dependencies (yadda yadda, the usual stuff)
 
@@ -20,7 +20,7 @@ cp .example.env .env
 
 3. fill the .env file with your mastodon instance url (e.g. `https://fedi.limes.pink`) and an app access token with the `write:statuses` scope.
 
-4. Make sure to also check the config at the top of the [index.js](https://github.com/gitlimes/system-usage-bot/blob/main/index.js) file for further configuration options!
+4. make sure to also check the config at the top of the [index.js](https://github.com/gitlimes/system-usage-bot/blob/main/index.js) file for further configuration options!
 
 5. that's all the setup needed to run the bot! congrats, i'm proud of ya :3
    <br>
