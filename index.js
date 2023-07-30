@@ -4,10 +4,10 @@ import osu from "node-os-utils";
 
 const config = {
     intro: "haii~ hewe awe teh system stats :3", // text that will prefix the stats in the toot
-    interval: 1800, // time in seconds between toots (set to 0 if manually triggering or using crontab)
+    interval: 0, // time in seconds between toots (set to 0 if manually triggering or using crontab)
     filledBarChar: "▰", // the character for the filled-in usage bar (can be an emoji)
     emptyBarChar: "▱", // the character for the empty part of the usage bar (can also be an emoji)
-    barLength: 10 // number of characters used for the usage bar
+    barLength: 20 // number of characters used for the usage bar
 }
 
 const masto = createRestAPIClient({
@@ -16,7 +16,7 @@ const masto = createRestAPIClient({
 });
 
 function usageBar(perc) {
-    const filledN = Math.round(perc / config.barLength);
+    const filledN = Math.round(perc / 100 * config.barLength);
     const filled = config.filledBarChar.repeat(filledN);
     const empty = config.emptyBarChar.repeat(config.barLength - filledN);
     return filled + empty;
