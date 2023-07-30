@@ -4,13 +4,23 @@ import osu from "node-os-utils";
 
 const config = {
     intro: "haii~ hewe awe teh system stats :3", // text that will prefix the stats in the toot
-    interval: 1800 // time in seconds between toots (set to 0 if manually triggering or using crontab)
+    interval: 1800, // time in seconds between toots (set to 0 if manually triggering or using crontab)
+    filledBarChar: "▰", // the character for the filled-in usage bar (can be an emoji)
+    emptyBarChar: "▱", // the character for the empty part of the usage bar (can also be an emoji)
+    barLength: 10 // number of characters used for the usage bar
 }
 
 const masto = createRestAPIClient({
     url: process.env.INSTANCE_URL,
     accessToken: process.env.BOT_ACCESS_TOKEN,
 });
+
+function usageBar(perc) {
+    const filledN = Math.round(perc / config.barLength);
+    const filled = config.filledBarChar.repeat(filledN);
+    const empty = config.emptyBarChar.repeat(config.barLength - filledN);
+    return filled + empty;
+}
 
 async function toot() {
     const cpu = await osu.cpu.usage();
@@ -39,7 +49,7 @@ async function toot() {
     let plural = (upSeconds !== 1) ? "s" : "";
     humanReadableUp += `${upSeconds} second${plural}`;
 
-    const toot = `${config.intro}\n\nCPU usage: ${cpu}%\nRAM usage: ${Math.round(ram.usedMemMb)}MB/${Math.round(ram.totalMemMb)}MB (${ram.usedMemPercentage}%)\nDisk usage (/): ${drive.usedGb}GB/${drive.totalGb}GB (${drive.usedPercentage}%)\nUptime: ${humanReadableUp}`;
+    const toot = `${config.intro}\n\nCPU:\n${usageBar(cpu)} (${cpu.toFixed(1)}%)\n\nRAM: ${Math.round(ram.usedMemMb)}MB/${Math.round(ram.totalMemMb)}MB\n${usageBar(ram.usedMemPercentage)} (${ram.usedMemPercentage.toFixed(1)}%)\n\nDisk (/): ${drive.usedGb}GB/${drive.totalGb}GB\n${usageBar(drive.usedPercentage)} (${parseFloat(drive.usedPercentage).toFixed(1)}%)\n\nUptime: ${humanReadableUp}`;
 
     const status = await masto.v1.statuses.create({
         status: toot,
