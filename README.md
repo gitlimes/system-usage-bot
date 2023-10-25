@@ -1,6 +1,6 @@
 # system-usage-bot
 
-a mastodon bot that toots the system usage of the server it runs on (see an example toots [here](https://fedi.limes.pink/@system))
+a mastodon bot that toots the system usage of the server it runs on (see example toots [here](https://fedi.limes.pink/@system))
 
 ### set up
 
