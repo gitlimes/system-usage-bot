@@ -34,4 +34,4 @@ pm2 start index.js --no-autorestart --cron "*/30 * * * *" --name "system-usage-b
 
 <br>
 <br>
-<p align="right">made with ❤ by <a href="https://limes.pink" target="_blank">ash (limes.pink)</a></p>
+<p align="right">made with ❤ by <a href="https://limes.pink" target="_blank">kip (limes.pink)</a></p>
